@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<uamapping>
+	<config rootFolder="root" description="Live demo for ApplicationCore">
+		<serverConfig applicationName="liveDemo" port="16660" />
+	</config>
+</uamapping>

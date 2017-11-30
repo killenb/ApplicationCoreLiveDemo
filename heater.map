@@ -1,0 +1,4 @@
+#name                      n_words  address  n_bytes  BAR  n_bits  n_fractionalBits  signed
+heater.heatingCurrent            1     1024        4    2      32                 0       0
+heater.temperatureReadback       1     1028        4    2      16                 3       1
+heater.supplyVoltages            4     1032       16    2      32                 0       0
