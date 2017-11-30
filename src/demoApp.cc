@@ -73,11 +73,11 @@ void ExampleApp::defineConnections() {
     cs("temperatureSetpoint") >> automation.operatorSetpoint;
     automation.actualSetpoint >> controller.temperatureSetpoint >> cs("actualSetpoint");
     
-    auto macropulseNr = timer("macropulseNr", typeid(int), 1, ctk::UpdateMode::push);
-    macropulseNr >> automation.trigger;
+    auto triggerNr = timer("triggerNr", typeid(int), 1, ctk::UpdateMode::push);
+    triggerNr >> automation.trigger;
     
     controller.heatingCurrent >> dev("heatingCurrent");
-    dev("temperatureReadback") [ macropulseNr ] >> controller.temperatureReadback >> cs("temperatureReadback");
+    dev("temperatureReadback") [ triggerNr ] >> controller.temperatureReadback >> cs("temperatureReadback");
 
 }
 

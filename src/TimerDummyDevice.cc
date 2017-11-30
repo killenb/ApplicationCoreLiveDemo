@@ -91,7 +91,7 @@ void TimerDummyRegisterAccessor<std::string>::postRead() {
 template<typename UserType>
 boost::shared_ptr< mtca4u::NDRegisterAccessor<UserType> > TimerDummy::getRegisterAccessor_impl(
                     const mtca4u::RegisterPath &registerPathName, size_t , size_t , mtca4u::AccessModeFlags flags) {
-    assert(registerPathName == "/macropulseNr");
+    assert(registerPathName == "/triggerNr");
     assert(flags.has(mtca4u::AccessMode::wait_for_new_data));
     flags.checkForUnknownFlags({mtca4u::AccessMode::wait_for_new_data});
     return boost::shared_ptr< mtca4u::NDRegisterAccessor<UserType> >(new TimerDummyRegisterAccessor<UserType>(registerPathName));
