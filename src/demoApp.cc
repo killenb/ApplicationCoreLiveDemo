@@ -15,9 +15,9 @@ namespace ctk = ChimeraTK;
 struct Controller : public ctk::ApplicationModule {
     using ctk::ApplicationModule::ApplicationModule;
 
-    ctk::ScalarPollInput<double> temperatureSetpoint{this, "temperatureSetpoint", "degC", "The setpoint for the temperature control"};
-    ctk::ScalarPushInput<double> temperatureReadback{this, "temperatureReadback", "degC", "The measured temperature"};
-    ctk::ScalarOutput<double> heatingCurrent{this, "heatingCurrent", "mA", "Supply current for the heating device"};
+    ctk::ScalarPollInput<double> temperatureSetpoint{this, "temperatureSetpoint", "degC", "The setpoint for the temperature control", {"CS"}};
+    ctk::ScalarPushInput<double> temperatureReadback{this, "temperatureReadback", "degC", "The measured temperature", {"CS", "HEATER"}};
+    ctk::ScalarOutput<double> heatingCurrent{this, "heatingCurrent", "mA", "Supply current for the heating device", {"HEATER"}};
     
     void mainLoop() {
       const double gain = 100.0;
@@ -56,6 +56,7 @@ void ExampleApp::defineConnections() {
     heater("supplyVoltages", typeid(int), 4) [ triggerNr ] >> cs("supplyVoltages");
     triggerNr >> cs("triggerNr");
 
-    controller.connectTo(cs);
+    controller.findTag("CS").connectTo(cs);
+    controller.findTag("HEATER").connectTo(heater);
 }
 
