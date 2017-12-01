@@ -1,0 +1,20 @@
+===== CUT HERE AND PASTE IN BETWEEN Controller AND THE APPLICATION =====================================================
+struct Oven : public ctk::ModuleGroup {
+    using ctk::ModuleGroup::ModuleGroup;
+    
+    Controller controller{this, "controller", "Proportional controller for temperature"};
+    ctk::ArrayPipe<int> supplyVoltages{this, "supplyVoltages", "mV", 4, "Supply voltages of our heating device", {"HEATER"}, {"CS"}};
+        
+};
+===== END CUT ==========================================================================================================
+
+===== CUT HERE AND REPLACE INSTANTIAIONS OF Controller AND supplyVoltages IN THE APPLICATION ===========================
+    Oven oven{this, "oven", "Our shiny new oven"};
+===== END CUT ==========================================================================================================
+
+
+===== CUT HERE AND REPLACE ALL 4 connectTo() lines in defineConnections() ==============================================
+    findTag("HEATER").flatten().connectTo(heater, triggerNr);
+    findTag("CS").connectTo(cs);
+===== END CUT ==========================================================================================================
+
