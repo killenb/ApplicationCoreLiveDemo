@@ -1,1 +1,1 @@
-Heater   sdm://./pci:mtcadummys0=heater.map    heater.map
+oven   sdm://./pci:mtcadummys0=oven.map    oven.map

@@ -37,9 +37,9 @@ struct ExampleApp : public ctk::Application {
 
     Controller controller{this, "controller", "Proportional controller for temperature"};
 
-    ctk::DeviceModule dev{"Heater","heater"};
-    ctk::DeviceModule timer{"Timer"};
-    ctk::ControlSystemModule cs{"TemperatureController"};
+    ctk::DeviceModule heater{"oven","heater"};
+    ctk::DeviceModule timer{"timer"};
+    ctk::ControlSystemModule cs{"Bakery"};
     
     void defineConnections();
 };
@@ -51,8 +51,8 @@ void ExampleApp::defineConnections() {
     auto triggerNr = timer("triggerNr", typeid(int), 1, ctk::UpdateMode::push);
 
     cs("temperatureSetpoint") >> controller.temperatureSetpoint;
-    controller.heatingCurrent >> dev("heatingCurrent");
-    dev("temperatureReadback") [ triggerNr ] >> controller.temperatureReadback
+    controller.heatingCurrent >> heater("heatingCurrent");
+    heater("temperatureReadback") [ triggerNr ] >> controller.temperatureReadback
         >> cs("temperatureReadback");
 }
 
