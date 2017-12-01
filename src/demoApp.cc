@@ -44,9 +44,9 @@ struct ExampleApp : public ctk::Application {
     ExampleApp() : Application("exampleApp") {}
     ~ExampleApp() { shutdown(); }
 
-    Oven oven{this, "oven", "Our shiny new oven"};
+    std::vector<Oven> ovens;
+    std::vector<ctk::DeviceModule> heaters;
 
-    ctk::DeviceModule heater{"oven","heater"};
     ctk::DeviceModule timer{"timer"};
     ctk::ControlSystemModule cs{"Bakery"};
     
@@ -59,8 +59,14 @@ void ExampleApp::defineConnections() {
     
     auto triggerNr = timer("triggerNr", typeid(int), 1, ctk::UpdateMode::push);
     triggerNr >> cs("triggerNr");
+    
+    for(size_t i=0; i<2; ++i) {
+      ovens.emplace_back(this, "oven"+std::to_string(i), "Oven "+std::to_string(i));
+      heaters.emplace_back("oven"+std::to_string(i),"heater");
 
-    findTag("HEATER").flatten().connectTo(heater, triggerNr);
+      ovens[i].findTag("HEATER").flatten().connectTo(heaters[i], triggerNr);
+    }
+
     findTag("CS").connectTo(cs);
     
 }
