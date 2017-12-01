@@ -1,0 +1,9 @@
+===== CUT HERE AND PASTE IN Application ================================================================================
+    ctk::ArrayPipe<int> supplyVoltages{this, "supplyVoltages", "mV", 4, "Supply voltages of our heating device", {"HEATER"}, {"CS"}};
+===== END CUT ==========================================================================================================
+
+===== CUT HERE AND PASTE IN defineConnections() ========================================================================
+    supplyVoltages.findTag("HEATER").connectTo(heater, triggerNr);
+    supplyVoltages.findTag("CS").connectTo(cs);
+===== END CUT ==========================================================================================================
+
