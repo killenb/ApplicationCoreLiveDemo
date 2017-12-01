@@ -1,0 +1,14 @@
+===== CUT HERE AND REPLACE INSTANTIATIONS OF Oven AND DeviceModule IN APPLICATION ======================================
+    std::vector<Oven> ovens;
+    std::vector<ctk::DeviceModule> heaters;
+===== END CUT ==========================================================================================================
+
+===== CUT HERE AND REPLACE findTag("HEATER") line in defineConnections() ===============================================
+    for(size_t i=0; i<2; ++i) {
+      ovens.emplace_back(this, "oven"+std::to_string(i), "Oven "+std::to_string(i));
+      heaters.emplace_back("oven"+std::to_string(i),"heater");
+
+      ovens[i].findTag("HEATER").flatten().connectTo(heaters[i], triggerNr);
+    }
+===== END CUT ==========================================================================================================
+

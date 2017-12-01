@@ -1,0 +1,5 @@
+===== CUT HERE AND PASTE IN defineConnections() AT THE END =============================================================
+    heater("supplyVoltages", typeid(int), 4) [ triggerNr ] >> cs("supplyVoltages");
+    triggerNr >> cs("triggerNr");
+===== END CUT ==========================================================================================================
+

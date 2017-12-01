@@ -1,0 +1,11 @@
+===== CUT HERE AND REPLACE VARIABLES IN Controller MODULE ==============================================================
+    ctk::ScalarPollInput<double> temperatureSetpoint{this, "temperatureSetpoint", "degC", "The setpoint for the temperature control", {"CS"}};
+    ctk::ScalarPushInput<double> temperatureReadback{this, "temperatureReadback", "degC", "The measured temperature", {"CS", "HEATER"}};
+    ctk::ScalarOutput<double> heatingCurrent{this, "heatingCurrent", "mA", "Supply current for the heating device", {"HEATER"}};
+===== END CUT ==========================================================================================================
+
+===== CUT HERE AND REPLACE ANY CONNECTION INVOLVING THE CONTROLLER (2x ">>", 1x connectTo()) ===========================
+    controller.findTag("HEATER").connectTo(heater, triggerNr);
+    controller.findTag("CS").connectTo(cs);
+===== END CUT ==========================================================================================================
+
