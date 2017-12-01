@@ -16,9 +16,9 @@ struct ExampleApp : public ctk::Application {
     ExampleApp() : Application("exampleApp") {}
     ~ExampleApp() { shutdown(); }
 
-    ctk::DeviceModule dev{"Heater","heater"};
-    ctk::DeviceModule timer{"Timer"};
-    ctk::ControlSystemModule cs{"TemperatureController"};
+    ctk::DeviceModule heater{"oven","heater"};
+    ctk::DeviceModule timer{"timer"};
+    ctk::ControlSystemModule cs{"Bakery"};
     
     void defineConnections();
 };
@@ -29,8 +29,8 @@ void ExampleApp::defineConnections() {
 
     auto triggerNr = timer("triggerNr", typeid(int), 1, ctk::UpdateMode::push);
 
-    cs("heatingCurrent", typeid(int), 1) >> dev("heatingCurrent");
-    dev("temperatureReadback", typeid(double), 1) [ triggerNr ]
+    cs("heatingCurrent", typeid(int), 1) >> heater("heatingCurrent");
+    heater("temperatureReadback", typeid(double), 1) [ triggerNr ]
         >> cs("temperatureReadback");
 }
 
