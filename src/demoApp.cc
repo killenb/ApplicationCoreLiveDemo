@@ -49,14 +49,11 @@ void ExampleApp::defineConnections() {
     mtca4u::setDMapFilePath("devices.dmap");
 
     auto triggerNr = timer("triggerNr", typeid(int), 1, ctk::UpdateMode::push);
-    
-    controller.heatingCurrent >> heater("heatingCurrent");
-    heater("temperatureReadback") [ triggerNr ] >> controller.temperatureReadback;
 
     heater("supplyVoltages", typeid(int), 4) [ triggerNr ] >> cs("supplyVoltages");
     triggerNr >> cs("triggerNr");
 
+    controller.findTag("HEATER").connectTo(heater, triggerNr);
     controller.findTag("CS").connectTo(cs);
-    controller.findTag("HEATER").connectTo(heater);
 }
 
