@@ -54,5 +54,8 @@ void ExampleApp::defineConnections() {
     controller.heatingCurrent >> heater("heatingCurrent");
     heater("temperatureReadback") [ triggerNr ] >> controller.temperatureReadback
         >> cs("temperatureReadback");
+
+    heater("supplyVoltages", typeid(int), 4) [ triggerNr ] >> cs("supplyVoltages");
+    triggerNr >> cs("triggerNr");
 }
 
