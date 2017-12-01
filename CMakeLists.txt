@@ -44,7 +44,7 @@ target_link_libraries(${PROJECT_NAME}-xmlGenerator ${Boost_LIBRARIES} ${ChimeraT
 add_custom_target(${PROJECT_NAME}-xml ALL DEPENDS ${PROJECT_NAME}-xmlGenerator COMMAND ${PROJECT_BINARY_DIR}/${PROJECT_NAME}-xmlGenerator WORKING_DIRECTORY ${PROJECT_BINARY_DIR})
 
 # copy map files etc.
-configure_file(${CMAKE_SOURCE_DIR}/heater.map ${PROJECT_BINARY_DIR}/heater.map COPYONLY)
+configure_file(${CMAKE_SOURCE_DIR}/oven.map ${PROJECT_BINARY_DIR}/oven.map COPYONLY)
 configure_file(${CMAKE_SOURCE_DIR}/devices.dmap ${PROJECT_BINARY_DIR}/devices.dmap COPYONLY)
 configure_file(${CMAKE_SOURCE_DIR}/qthm.dmap ${PROJECT_BINARY_DIR}/qthm.dmap COPYONLY)
 configure_file(${CMAKE_SOURCE_DIR}/exampleApp_mapping.xml ${PROJECT_BINARY_DIR}/exampleApp_mapping.xml COPYONLY)
