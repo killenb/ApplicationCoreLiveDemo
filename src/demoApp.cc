@@ -32,12 +32,19 @@ struct Controller : public ctk::ApplicationModule {
     }
 };
 
+struct Oven : public ctk::ModuleGroup {
+    using ctk::ModuleGroup::ModuleGroup;
+    
+    Controller controller{this, "controller", "Proportional controller for temperature"};
+    ctk::ArrayPipe<int> supplyVoltages{this, "supplyVoltages", "mV", 4, "Supply voltages of our heating device", {"HEATER"}, {"CS"}};
+        
+};
+
 struct ExampleApp : public ctk::Application {
     ExampleApp() : Application("exampleApp") {}
     ~ExampleApp() { shutdown(); }
 
-    Controller controller{this, "controller", "Proportional controller for temperature"};
-    ctk::ArrayPipe<int> supplyVoltages{this, "supplyVoltages", "mV", 4, "Supply voltages of our heating device", {"HEATER"}, {"CS"}};
+    Oven oven{this, "oven", "Our shiny new oven"};
 
     ctk::DeviceModule heater{"oven","heater"};
     ctk::DeviceModule timer{"timer"};
@@ -53,10 +60,8 @@ void ExampleApp::defineConnections() {
     auto triggerNr = timer("triggerNr", typeid(int), 1, ctk::UpdateMode::push);
     triggerNr >> cs("triggerNr");
 
-    controller.findTag("HEATER").connectTo(heater, triggerNr);
-    controller.findTag("CS").connectTo(cs);
-    supplyVoltages.findTag("HEATER").connectTo(heater, triggerNr);
-    supplyVoltages.findTag("CS").connectTo(cs);
+    findTag("HEATER").flatten().connectTo(heater, triggerNr);
+    findTag("CS").connectTo(cs);
     
 }
 
