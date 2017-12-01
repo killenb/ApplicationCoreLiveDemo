@@ -9,6 +9,7 @@
 
 #include <ChimeraTK/ApplicationCore/ApplicationCore.h>
 #include <ChimeraTK/ApplicationCore/EnableXMLGenerator.h>
+#include <ChimeraTK/ApplicationCore/Pipe.h>
 
 namespace ctk = ChimeraTK;
 
@@ -36,6 +37,7 @@ struct ExampleApp : public ctk::Application {
     ~ExampleApp() { shutdown(); }
 
     Controller controller{this, "controller", "Proportional controller for temperature"};
+    ctk::ArrayPipe<int> supplyVoltages{this, "supplyVoltages", "mV", 4, "Supply voltages of our heating device", {"HEATER"}, {"CS"}};
 
     ctk::DeviceModule heater{"oven","heater"};
     ctk::DeviceModule timer{"timer"};
@@ -47,16 +49,14 @@ ExampleApp theExampleApp;
 
 void ExampleApp::defineConnections() {
     mtca4u::setDMapFilePath("devices.dmap");
-
-    auto triggerNr = timer("triggerNr", typeid(int), 1, ctk::UpdateMode::push);
     
-    controller.heatingCurrent >> heater("heatingCurrent");
-    heater("temperatureReadback") [ triggerNr ] >> controller.temperatureReadback;
-
-    heater("supplyVoltages", typeid(int), 4) [ triggerNr ] >> cs("supplyVoltages");
+    auto triggerNr = timer("triggerNr", typeid(int), 1, ctk::UpdateMode::push);
     triggerNr >> cs("triggerNr");
 
+    controller.findTag("HEATER").connectTo(heater, triggerNr);
     controller.findTag("CS").connectTo(cs);
-    controller.findTag("HEATER").connectTo(heater);
+    supplyVoltages.findTag("HEATER").connectTo(heater, triggerNr);
+    supplyVoltages.findTag("CS").connectTo(cs);
+    
 }
 
