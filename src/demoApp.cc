@@ -1,10 +1,3 @@
-/*
- * demoApp.cc
- *
- *  Created on: Nov 30, 2017
- *      Author: Martin Hierholzer
- */
-
 #include <iostream>
 
 #include <ChimeraTK/ApplicationCore/ApplicationCore.h>
