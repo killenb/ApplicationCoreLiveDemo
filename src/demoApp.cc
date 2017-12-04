@@ -53,10 +53,8 @@ void ExampleApp::defineConnections() {
     auto triggerNr = timer("triggerNr", typeid(int), 1, ctk::UpdateMode::push);
     triggerNr >> cs("triggerNr");
 
-    controller.findTag("HEATER").connectTo(heater, triggerNr);
-    controller.findTag("CS").connectTo(cs);
-    supplyVoltages.findTag("HEATER").connectTo(heater, triggerNr);
-    supplyVoltages.findTag("CS").connectTo(cs);
+    findTag("HEATER").connectTo(heater, triggerNr);
+    findTag("CS").connectTo(cs);
     
 }
 
