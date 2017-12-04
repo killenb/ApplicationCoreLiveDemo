@@ -13,8 +13,7 @@ struct Oven : public ctk::ModuleGroup {
 ===== END CUT ==========================================================================================================
 
 
-===== CUT HERE AND REPLACE ALL 4 connectTo() lines in defineConnections() ==============================================
+===== defineConnections() SHOULD ALREADY HAVE THIS =====================================================================
     findTag("HEATER").flatten().connectTo(heater, triggerNr);
-    findTag("CS").connectTo(cs);
 ===== END CUT ==========================================================================================================
 
