@@ -2,6 +2,7 @@
 #include <mtca4u/BackendFactory.h>
 #include <mtca4u/DeviceAccessVersion.h>
 #include <mtca4u/SyncNDRegisterAccessor.h>
+#include <mtca4u/Utilities.h>
 
 template<typename UserType>
 class TimerDummyRegisterAccessor;
@@ -80,6 +81,7 @@ class TimerDummyRegisterAccessor : public mtca4u::SyncNDRegisterAccessor<UserTyp
 
     void replaceTransferElement(boost::shared_ptr<mtca4u::TransferElement>) override {}
 
+    mtca4u::AccessModeFlags getAccessModeFlags() const override { return {}; }
 };
 
 template<>
