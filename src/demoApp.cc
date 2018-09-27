@@ -2,6 +2,7 @@
 
 #include <ChimeraTK/ApplicationCore/ApplicationCore.h>
 #include <ChimeraTK/ApplicationCore/EnableXMLGenerator.h>
+#include <mtca4u/Utilities.h>
 
 namespace ctk = ChimeraTK;
 
