@@ -3,7 +3,6 @@
 #include <ChimeraTK/ApplicationCore/ApplicationCore.h>
 #include <ChimeraTK/ApplicationCore/EnableXMLGenerator.h>
 #include <ChimeraTK/ApplicationCore/Pipe.h>
-#include <mtca4u/Utilities.h>
 
 namespace ctk = ChimeraTK;
 
@@ -49,7 +48,7 @@ struct ExampleApp : public ctk::Application {
 ExampleApp theExampleApp;
 
 void ExampleApp::defineConnections() {
-    mtca4u::setDMapFilePath("devices.dmap");
+    ctk::setDMapFilePath("devices.dmap");
     
     auto triggerNr = timer("triggerNr", typeid(int), 1, ctk::UpdateMode::push);
     triggerNr >> cs("triggerNr");
